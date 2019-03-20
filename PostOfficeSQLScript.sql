@@ -72,8 +72,8 @@ CREATE TABLE IF NOT EXISTS `PostOffice`.`Package Payment` (
   CONSTRAINT `fk_Package Payment_Payment type1`
     FOREIGN KEY (`type`)
     REFERENCES `PostOffice`.`Payment type` (`typeID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE RESTRICT
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 ALTER TABLE `Package Payment` AUTO_INCREMENT=101;
 
@@ -115,13 +115,13 @@ CREATE TABLE IF NOT EXISTS `PostOffice`.`Employee` (
   CONSTRAINT `fk_Employee_Location1`
     FOREIGN KEY (`LocationID`)
     REFERENCES `PostOffice`.`Location` (`LocationID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE restrict
+    ON UPDATE cascade,
   CONSTRAINT `fk_Employee_Roles1`
     FOREIGN KEY (`RoleID`)
     REFERENCES `PostOffice`.`Roles` (`RolesID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE restrict
+    ON UPDATE cascade)
 ENGINE = InnoDB;
 ALTER TABLE `Employee` AUTO_INCREMENT=10001;
 
@@ -144,18 +144,18 @@ CREATE TABLE IF NOT EXISTS `PostOffice`.`Package Transactions` (
   CONSTRAINT `fk_Package Transactions_Package Payment1`
     FOREIGN KEY (`PaymentID`)
     REFERENCES `PostOffice`.`Package Payment` (`PaymentID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE restrict
+    ON UPDATE cascade,
   CONSTRAINT `fk_Package Transactions_Customer1`
     FOREIGN KEY (`CustomerID`)
     REFERENCES `PostOffice`.`Customer` (`CustomerID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE restrict
+    ON UPDATE cascade,
   CONSTRAINT `fk_Package Transactions_Employee1`
     FOREIGN KEY (`EmployeeID`)
     REFERENCES `PostOffice`.`Employee` (`EmployeeID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE restrict
+    ON UPDATE cascade)
 ENGINE = InnoDB;
 ALTER TABLE `Package Transactions` AUTO_INCREMENT=10001;
 
@@ -170,7 +170,7 @@ CREATE TABLE IF NOT EXISTS `PostOffice`.`Package` (
   `Weight` DOUBLE UNSIGNED NOT NULL,
   `Size` DOUBLE UNSIGNED NOT NULL,
   `Type` INT NOT NULL,
-  `ToCustomerID` INT NULL,
+  `finalLocation` VARCHAR(30) NOT NULL,
   `FromLocationID` INT NULL,
   `SentDate` DATE NOT NULL,
   `ETA` DATE NOT NULL,
@@ -180,27 +180,21 @@ CREATE TABLE IF NOT EXISTS `PostOffice`.`Package` (
   INDEX `fk_Package_Customer1_idx` (`CustomerID` ASC),
   INDEX `fk_Package_Location1_idx` (`FromLocationID` ASC),
   INDEX `fk_Package_Package Transactions1_idx` (`TransactionID` ASC),
-  INDEX `fk_Package_Customer2_idx` (`ToCustomerID` ASC),
   CONSTRAINT `fk_Package_Customer1`
     FOREIGN KEY (`CustomerID`)
     REFERENCES `PostOffice`.`Customer` (`CustomerID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE restrict
+    ON UPDATE cascade,
   CONSTRAINT `fk_Package_Location1`
     FOREIGN KEY (`FromLocationID`)
     REFERENCES `PostOffice`.`Location` (`LocationID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE restrict
+    ON UPDATE cascade,
   CONSTRAINT `fk_Package_Package Transactions1`
     FOREIGN KEY (`TransactionID`)
     REFERENCES `PostOffice`.`Package Transactions` (`TransactionID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Package_Customer2`
-    FOREIGN KEY (`ToCustomerID`)
-    REFERENCES `PostOffice`.`Customer` (`CustomerID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE restrict
+    ON UPDATE cascade)
 ENGINE = InnoDB;
 ALTER TABLE `Package` AUTO_INCREMENT=10001;
 
@@ -217,8 +211,8 @@ CREATE TABLE IF NOT EXISTS `PostOffice`.`Trucks` (
   CONSTRAINT `fk_Trucks_Employee1`
     FOREIGN KEY (`EmployeeID`)
     REFERENCES `PostOffice`.`Employee` (`EmployeeID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE restrict
+    ON UPDATE cascade)
 ENGINE = InnoDB;
 ALTER TABLE `Trucks` AUTO_INCREMENT=101;
 
@@ -231,7 +225,7 @@ CREATE TABLE IF NOT EXISTS `PostOffice`.`Tracking` (
   `TruckID` INT NOT NULL,
   `HandlerID` INT NOT NULL,
   `CurrentLocationID` INT NOT NULL,
-  `GoingToHouse` VARCHAR(30) NULL,
+  `GoingToAddress` VARCHAR(30) NULL,
   `GoingToLocationID` INT NULL,
   `Date` DATETIME NOT NULL,
   PRIMARY KEY (`PackageID`),
@@ -242,29 +236,55 @@ CREATE TABLE IF NOT EXISTS `PostOffice`.`Tracking` (
   CONSTRAINT `fk_Tracking_Package1`
     FOREIGN KEY (`PackageID`)
     REFERENCES `PostOffice`.`Package` (`PackageID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE restrict
+    ON UPDATE cascade,
   CONSTRAINT `fk_Tracking_Trucks1`
     FOREIGN KEY (`TruckID`)
     REFERENCES `PostOffice`.`Trucks` (`TruckID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE restrict
+    ON UPDATE cascade,
   CONSTRAINT `fk_Tracking_Employee1`
     FOREIGN KEY (`HandlerID`)
     REFERENCES `PostOffice`.`Employee` (`EmployeeID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE restrict
+    ON UPDATE cascade,
   CONSTRAINT `fk_Tracking_Location1`
     FOREIGN KEY (`CurrentLocationID`)
     REFERENCES `PostOffice`.`Location` (`LocationID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE restrict
+    ON UPDATE cascade,
   CONSTRAINT `fk_Tracking_Location2`
     FOREIGN KEY (`GoingToLocationID`)
     REFERENCES `PostOffice`.`Location` (`LocationID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE restrict
+    ON UPDATE cascade)
 ENGINE = InnoDB;
+
+DELIMITER //
+CREATE TRIGGER InsertGoingToNotNULL BEFORE INSERT ON `PostOffice`.`Tracking`
+FOR EACH ROW BEGIN
+  IF (NEW.GoingToAddress IS NULL AND NEW.GoingToLocationID IS NULL) THEN
+    SIGNAL SQLSTATE '45000'
+    SET MESSAGE_TEXT = '\'GoingToAddress\' and \'GoingToLocationID\' cannot both be null';
+  END IF;
+  IF (NEW.GoingToAddress IS NOT NULL AND NEW.GoingToLocationID IS NOT NULL) THEN
+    SIGNAL SQLSTATE '45000'
+    SET MESSAGE_TEXT = '\'GoingToAddress\' and \'GoingToLocationID\' cannot both be not null';
+  END IF;
+END//
+CREATE TRIGGER UpdateGoingToNotNULL BEFORE UPDATE ON `PostOffice`.`Tracking`
+FOR EACH ROW BEGIN
+  IF (NEW.GoingToAddress IS NULL AND NEW.GoingToLocationID IS NULL) THEN
+    SIGNAL SQLSTATE '45000'
+    SET MESSAGE_TEXT = '\'GoingToAddress\' and \'GoingToLocationID\' cannot both be null';
+  END IF;
+  IF (NEW.GoingToAddress IS NOT NULL AND NEW.GoingToLocationID IS NOT NULL) THEN
+    SIGNAL SQLSTATE '45000'
+    SET MESSAGE_TEXT = '\'GoingToAddress\' and \'GoingToLocationID\' cannot both be not null';
+  END IF;
+END//
+DELIMITER ;
+
 
 
 -- -----------------------------------------------------
@@ -284,8 +304,8 @@ CREATE TABLE IF NOT EXISTS `PostOffice`.`Online Payment` (
   CONSTRAINT `fk_Online Payment_Payment type1`
     FOREIGN KEY (`type`)
     REFERENCES `PostOffice`.`Payment type` (`typeID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE restrict
+    ON UPDATE cascade)
 ENGINE = InnoDB;
 ALTER TABLE `Online Payment` AUTO_INCREMENT=101;
 
@@ -306,13 +326,13 @@ CREATE TABLE IF NOT EXISTS `PostOffice`.`Online Transactions` (
   CONSTRAINT `fk_Online Transactions_Online Payement1`
     FOREIGN KEY (`OnlinePayementID`)
     REFERENCES `PostOffice`.`Online Payment` (`OnlinePaymentID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE restrict
+    ON UPDATE cascade,
   CONSTRAINT `fk_Online Transactions_Customer1`
     FOREIGN KEY (`CustomerID`)
     REFERENCES `PostOffice`.`Customer` (`CustomerID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE restrict
+    ON UPDATE cascade)
 ENGINE = InnoDB;
 ALTER TABLE `Online Transactions` AUTO_INCREMENT=10001;
 
@@ -346,13 +366,13 @@ CREATE TABLE IF NOT EXISTS `PostOffice`.`Order Details` (
   CONSTRAINT `fk_Online Products_has_Online Transactions_Online Products1`
     FOREIGN KEY (`ProductID`)
     REFERENCES `PostOffice`.`Online Products` (`ProductID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE restrict
+    ON UPDATE cascade,
   CONSTRAINT `fk_Online Products_has_Online Transactions_Online Transactions1`
     FOREIGN KEY (`TransactionID`)
     REFERENCES `PostOffice`.`Online Transactions` (`TransactionID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE restrict
+    ON UPDATE cascade)
 ENGINE = InnoDB;
 
 
