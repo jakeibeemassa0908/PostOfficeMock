@@ -1,0 +1,27 @@
+<div class="navigation">
+  <img class="logo-img" src="https://www.usps.com/global-elements/header/images/utility-header/logo-sb.svg" alt="Logo" routerLink="home">
+  <nav>
+    <ul class="nav-list">
+      <li><a class="nav-link" routerLink="home">Home</a></li>
+      <li><a class="nav-link" routerLink="tracking">Track</a></li>
+      <li><a class="nav-link" routerLink="mypackages" *ngIf="user">My Packages</a></li>
+      <li><a class="nav-link" routerLink="customerLookup" *ngIf="employee || manager">Customer Lookup</a></li>
+      <li><a class="nav-link" routerLink="shipPackage" *ngIf="employee">Ship Package</a></li>
+      <li><a class="nav-link" routerLink="scanPackage" *ngIf="employee">Scan Package</a></li>
+      <li><a class="nav-link" routerLink="employeeLookup" *ngIf="manager">Employee Lookup</a></li>
+      <li><a class="nav-link" routerLink="locationEmployees" *ngIf="manager">My Employees</a></li>
+      <li><a class="nav-link" routerLink="locationDashboard" *ngIf="manager">Dashboard</a></li>
+
+      <li><a class="nav-link" routerLink="userAccount" *ngIf="user">Account</a></li>
+      <li><a class="nav-link" routerLink="employeeAccount" *ngIf="employee || manager">Account</a></li>
+      <li><a class="nav-link" routerLink="findlocation" *ngIf="!employee && !manager">Find Location</a></li>
+      <li><a class="nav-link" routerLink="shop" *ngIf="user">Shop</a></li>
+
+
+
+      <li class="right"><a class="nav-link" *ngIf="logged" (click)="logout()">logout</a></li>
+      <li class="right"><a class="nav-link" *ngIf="!logged" routerLink="register">register</a></li>
+      <li class="right"><a class="nav-link" *ngIf="!logged" routerLink="login">login</a></li>
+    </ul>
+  </nav>
+</div>
