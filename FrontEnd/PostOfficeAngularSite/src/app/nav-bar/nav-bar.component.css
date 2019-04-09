@@ -1,0 +1,44 @@
+nav {
+  margin: 30px;
+}
+
+.logo-img {
+  float: left;
+  height: 30px;
+  padding: 0px;
+  margin-left: 70px;
+  margin-right: 5px;
+  margin-top: 12px;
+  display: inline-block;
+  cursor: pointer;
+}
+
+ul {
+  height: 50px;
+  list-style-type: none;
+  margin-right: 70px;
+  padding: 0px;
+  overflow: hidden;
+  background-color: #333;
+  line-height: 12px;
+}
+
+li {
+  float: left;
+}
+
+  li .nav-link {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 20px 15px;
+    text-decoration: none;
+  }
+
+.right {
+  float: right;
+}
+
+a:hover {
+  background-color: black;
+}

@@ -1,0 +1,42 @@
+<body>
+  <h1>USPS Tracking</h1>
+  <div class="alert" [hidden]="hideAlert">
+    <a>Holy guacamole! You should check in on some of those fields below.</a>
+    <button (click)="closeAlert()">X</button>
+  </div>
+
+
+  <div class="trackingIDForm">
+    <input type="text" [formControl]="IDForm" placeholder="Enter your 10 digit tracking number">
+    <button mat-raised-button (click)="trackPackage()">Track</button>
+    <br>
+    Tracking Package: {{ID}}
+  </div>
+
+
+  <div class="info-panel">
+    <mat-expansion-panel class="one">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          What does my tracking number look like?
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <p>
+        This is the primary content of the panel This is the primary content of the panel
+        This is the primary content of the panel This is the primary content of the panel
+        This is the primary content of the panel This is the primary content of the panel.
+      </p>
+    </mat-expansion-panel>
+    <mat-expansion-panel class="two">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Where do I find my tracking number?
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <p>Your tracking number can be found in the following places:</p>
+    </mat-expansion-panel>
+  </div>
+</body>
+
+
+
