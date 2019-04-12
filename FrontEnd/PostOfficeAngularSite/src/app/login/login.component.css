@@ -49,3 +49,21 @@ body {
 
 
 
+.alert {
+  margin: auto;
+  margin-bottom: 30px;
+  width: 600px;
+  background-color: lightcoral;
+  height: 40px;
+  line-height: 40px;
+}
+
+  .alert a {
+    margin-left: 10px;
+  }
+
+  .alert button {
+    float: right;
+    padding: 5px;
+    margin: 5px;
+  }
