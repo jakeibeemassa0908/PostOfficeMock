@@ -34,14 +34,22 @@ export class APIService {
     return this.http.get('http://localhost:3000/api/packageTracking', { params });
   }
 
+  //myPackages by user id
   myPackages(id: string): Observable<any> {
     const params = new HttpParams().set('id', id);
     return this.http.get('http://localhost:3000/api/myPackages', { params });
   }
 
+  //packages to address by user id
   packagesToAddress(id: string): Observable<any> {
     const params = new HttpParams().set('id', id);
     return this.http.get('http://localhost:3000/api/packagesToAddress', { params });
+  }
+
+  //closest location based on zip
+  findLocation(zip: string): Observable<any> {
+    const params = new HttpParams().set('zip', zip);
+    return this.http.get('http://localhost:3000/api/findLocation', { params });
   }
 
 }

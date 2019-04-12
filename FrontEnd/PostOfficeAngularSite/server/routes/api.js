@@ -80,5 +80,12 @@ router.get('/packagesToAddress', (req, res) => {
   });
 });
 
+router.get('/findLocation', (req, res) => {
+  connection.query('SELECT Location.LocationID, Location.BuildingNumber, Location.ZipCode, Location.City, Location.State, Location.Hours FROM Location ORDER BY ABS(Location.ZipCode - ?) DESC', [req.query.zip], function (err, rows, fields) {
+    if (err) throw err
+    res.json(rows);
+  });
+});
+
 
 module.exports = router;

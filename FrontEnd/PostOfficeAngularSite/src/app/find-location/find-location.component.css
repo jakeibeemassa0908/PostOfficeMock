@@ -1,0 +1,48 @@
+body {
+  margin: auto;
+  margin-top: 30px;
+  width: 80%;
+  padding: 0px;
+}
+
+.ZipCodeForm {
+  width: 100%;
+  margin: 5px;
+  color: blue;
+}
+
+input {
+  width: 303px;
+}
+
+button {
+  margin: 5px;
+}
+
+mat-card {
+  color: red;
+  width: 240px;
+  padding-left: 50px;
+  margin: 2px;
+  box-shadow: 0px 2px 1px -1px rgba(0,0,0,.2),
+    0px 1px 1px 0px rgba(0,0,0,.14),
+    0px 1px 3px 0px rgba(0,0,0,.12);
+}
+
+.name {
+  color: blue;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 0px;
+}
+
+.address {
+  color: black;
+  font-size: 12px;
+}
+
+.hours {
+  font-size: 10px;
+  line-height: 0px;
+  color: darkgray;
+}

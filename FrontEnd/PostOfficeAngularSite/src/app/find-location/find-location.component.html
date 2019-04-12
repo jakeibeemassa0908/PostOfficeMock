@@ -1,3 +1,14 @@
-<p>
-  find-location works!
-</p>
+<body>
+  <div class="ZipCodeForm">
+    <input type="text" [formControl]="Zip" placeholder="ZipCode">
+    <button mat-raised-button (click)="findLocation()">Lookup</button>
+    <br>
+    <br>
+  </div>
+
+  <mat-card *ngFor="let Location of Locations">
+    <p class="name">PostOffice {{Location.LocationID}}
+    <p class="address">{{Location.BuildingNumber}} {{Location.Street}} {{Location.ZipCode}} {{Location.City}} {{Location.State}}
+    <p class="hours">Open: {{Location.Hours}}
+  </mat-card>
+</body>
