@@ -14,8 +14,9 @@ export class AuthService {
   }
   // ...
   //login 
-  sendToken(token: string) {
+  sendToken(token: string, ID: string) {
     sessionStorage.setItem('token', token);
+    sessionStorage.setItem('ID', ID);
     this.IsLoggedIn.emit(token);
   }
 

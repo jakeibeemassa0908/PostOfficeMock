@@ -40,6 +40,7 @@ import {
   MatTreeModule,
 } from '@angular/material';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 
 import { AppComponent } from './app.component';
@@ -49,7 +50,6 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { MyPackagesComponent } from './my-packages/my-packages.component';
 import { RegisterComponent } from './register/register.component';
-import { AuthService } from './_services/auth.service';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { FindLocationComponent } from './find-location/find-location.component';
 import { ShopComponent } from './shop/shop.component';
@@ -62,6 +62,10 @@ import { EmployeeLookupComponent } from './employee-lookup/employee-lookup.compo
 import { LocationEmployeesComponent } from './location-employees/location-employees.component';
 import { LocationDashboardComponent } from './location-dashboard/location-dashboard.component';
 
+
+import { AuthService } from './_services/auth.service';
+import { APIService } from './_services/api.service';
+import { RoleGuardService } from './_services/role-guard.service';
 
 @NgModule({
   declarations: [
@@ -123,7 +127,8 @@ import { LocationDashboardComponent } from './location-dashboard/location-dashbo
     MatTooltipModule,
     MatTreeModule,
     BrowserAnimationsModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   exports: [
     MatAutocompleteModule,
@@ -163,7 +168,7 @@ import { LocationDashboardComponent } from './location-dashboard/location-dashbo
     MatTreeModule,
     BrowserAnimationsModule
   ],
-  providers: [AuthService],
+  providers: [AuthService, APIService, RoleGuardService, HttpClientModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

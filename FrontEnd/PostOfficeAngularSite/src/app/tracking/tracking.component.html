@@ -1,7 +1,7 @@
 <body>
   <h1>USPS Tracking</h1>
   <div class="alert" [hidden]="hideAlert">
-    <a>Holy guacamole! You should check in on some of those fields below.</a>
+    <a>The ID you enterd in not valid! You should check in on some of those fields below.</a>
     <button (click)="closeAlert()">X</button>
   </div>
 
@@ -13,6 +13,22 @@
     Tracking Package: {{ID}}
   </div>
 
+
+  <div class="tracking table" [hidden]="hideTracking">
+    <br><br><br>
+    <table>
+      <tr>
+        <th>Time</th>
+        <th>Current Location</th>
+        <th>Status</th>
+      </tr>
+      <tr *ngFor="let track of Response">
+        <td>{{track.Date}}</td>
+        <td>{{track.City}} {{track.State}}</td>
+        <td>{{track.Status}}</td>
+      </tr>
+    </table>
+  </div>
 
   <div class="info-panel">
     <mat-expansion-panel class="one">
@@ -36,6 +52,9 @@
       <p>Your tracking number can be found in the following places:</p>
     </mat-expansion-panel>
   </div>
+
+
+
 </body>
 
 

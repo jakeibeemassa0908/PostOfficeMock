@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { APIService } from '../_services/api.service';
 
 @Component({
   selector: 'app-tracking',
@@ -11,31 +12,32 @@ export class TrackingComponent implements OnInit {
   ID = '';
   IDForm = new FormControl('');
   hideAlert = true;
+  hideTracking = true;
   panelOpenState = false;
+  Response;
 
-  constructor() { }
+  constructor(public api: APIService) {}
 
-  trackPackage(){
-    if (this.isValid()) //id is good.
-    {
-      this.hideAlert = true;
-      this.ID = this.IDForm.value;
-    }
-    else //bad id
-    {
-      this.hideAlert = false;
-      this.ID = '';
-    }
-  }
-
-  isValid() //validate the package id
+  trackPackage() //validate the package id
   {
-    if (this.IDForm.value.length < 5) {
-      return false;
-    }
-    else {
-      return true;
-    }
+    this.api.packageTracking(this.IDForm.value)
+      .subscribe((data: {}) => {
+        //no package
+        if (data[0] == undefined) {
+          this.hideTracking = true;
+          this.hideAlert = false;
+          this.ID = '';
+        }
+        //found the package
+        else if (data[0] != undefined) {
+          this.Response = data;
+          console.log(this.Response);
+          this.hideAlert = true;
+          this.hideTracking = false;
+        }
+  });;
+
+      
   }
 
   closeAlert() {
