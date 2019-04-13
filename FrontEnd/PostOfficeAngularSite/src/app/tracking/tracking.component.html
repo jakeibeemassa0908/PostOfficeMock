@@ -1,5 +1,5 @@
 <body>
-  <h1>USPS Tracking</h1>
+  <h1>Let's help you find your package</h1>
   <div class="alert" [hidden]="hideAlert">
     <a>The ID you enterd in not valid! You should check in on some of those fields below.</a>
     <button (click)="closeAlert()">X</button>
@@ -8,7 +8,7 @@
 
   <div class="trackingIDForm">
     <input type="text" [formControl]="IDForm" placeholder="Enter your 10 digit tracking number">
-    <button mat-raised-button (click)="trackPackage()">Track</button>
+    <button type="button" class="btn btn-danger" mat-raised-button (click)="trackPackage()">Track</button>
     <br>
     Tracking Package: {{ID}}
   </div>
