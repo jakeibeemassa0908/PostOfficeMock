@@ -52,6 +52,22 @@ export class APIService {
     return this.http.get('http://localhost:3000/api/findLocation', { params });
   }
 
+  //register User in Customer Table
+  registerUser(Fname: string, MInit: string, Lname: string, Email: string, MobileNumber: string, HouseNumber: string, Street: string, City: string, State: string, ZipCode: string): Observable<any> {
+    const params = new HttpParams().set('Fname', Fname).set('MInit', MInit).set('Lname', Lname).set('Email', Email).set('MobileNumber', MobileNumber).set('HouseNumber', HouseNumber).set('Street', Street).set('City', City).set('State', State).set('ZipCode', ZipCode);
+    return this.http.get('http://localhost:3000/api/registerUser', { params });
+  }
+
+
+  //user to Login table
+  registerUserLogin(Email: string, Password: string): Observable<any> {
+    const params = new HttpParams().set('Email', Email).set('Password', Password);
+    return this.http.get('http://localhost:3000/api/registerUserLogin', { params });
+  }
+
+
+
+
 }
 
 

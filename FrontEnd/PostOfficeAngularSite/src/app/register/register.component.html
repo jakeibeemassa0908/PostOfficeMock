@@ -1,22 +1,23 @@
 <body>
-  <div class="register-page">
+  <div class="alert" [hidden]="hideAlert">
+    <a>{{errorMessage}}</a>
+    <button (click)="closeAlert()">X</button>
+  </div>
+
     <div class="form">
-      <form class="register-form">
-        <div class="name-form">
-          <input type="text" placeholder="Fist Name" /> <input type="text" placeholder="Middle Int" /> <input type="text" placeholder="Last Name" />
-        </div>
-        <input type="text" placeholder="Email" />
-        <input type="text" placeholder="Phone Number" />
-        <div class="adress-form">
-          <input type="text" placeholder="House Number" /> <input type="text" placeholder="street Adress" />
-          </div>
-        <div class="city-form">
-          <input type="text" placeholder="city" /> <input type="text" placeholder="state" /> <input type="text" placeholder="zip" />
-        </div>
-          <input type="password" placeholder="password" />
-          <button>login</button>
-          <p class="message">Not registered? <a href="register">Create an account</a></p>
+      <form class="register-form" [formGroup]="registerForm" (ngSubmit)="register()">
+        <input type="text" formControlName="Fname" placeholder="Fist Name" />
+        <input type="text" formControlName="Mint" placeholder="Middle Int" />
+        <input type="text" formControlName="Lname" placeholder="Last Name" />
+        <input type="text" formControlName="Email" placeholder="Email" />
+        <input type="text" formControlName="PhoneNumber" placeholder="Phone Number" />
+        <input type="text" formControlName="HouseNumber" placeholder="House Number" />
+        <input type="text" formControlName="Street" placeholder="street Adress" />
+        <input type="text" formControlName="City" placeholder="city" />
+        <input type="text" formControlName="State" placeholder="state INTI" />
+        <input type="text" formControlName="Zip" placeholder="zip" />
+        <input type="password" formControlName="Password" placeholder="password" />
+        <button type="submit">Register</button>
       </form>
     </div>
-  </div>
 </body>

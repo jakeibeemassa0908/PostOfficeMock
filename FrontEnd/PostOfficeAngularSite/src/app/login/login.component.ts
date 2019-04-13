@@ -32,13 +32,11 @@ export class LoginComponent implements OnInit {
           if (data[0] != undefined) {
             console.log("User: " + data[0].CustomerID + " has logged in");
             this.auth.sendToken("user", data[0].CustomerID);
-
             this.myRoute.navigate(["home"]);
           }
           else {
             this.hideAlert = false;
             this.errorMessage = "Incorect Email or Passowrd";
-
           }
         });;
     }
