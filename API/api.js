@@ -80,10 +80,30 @@ router.get('/packagesToAddress', (req, res) => {
   });
 });
 
+
+//find location based on ABS of ZipCode
 router.get('/findLocation', (req, res) => {
   connection.query('SELECT Location.LocationID, Location.BuildingNumber, Location.ZipCode, Location.City, Location.State, Location.Hours FROM Location ORDER BY ABS(Location.ZipCode - ?) DESC', [req.query.zip], function (err, rows, fields) {
     if (err) throw err
     res.json(rows);
+  });
+});
+
+router.get('/registerUser', (req, res) => {
+  console.log(req.query);
+  connection.query('INSERT INTO Customer (`Fname`, `MInit`, `Lname`, `Email`, `MobileNumber`, `HouseNumber`, `Street`, `ZipCode`, `City`, `State`, `Country`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, "USA")', [req.query.Fname, req.query.MInit, req.query.Lname, req.query.Email, req.query.MobileNumber, req.query.HouseNumber, req.query.Street, req.query.ZipCode, req.query.City, req.query.State], function (err, rows, fields) {
+    if (err) console.log(err);
+    res.json(err);
+
+  });
+});
+
+
+router.get('/registerUserLogin', (req, res) => {
+  console.log(req.query);
+  connection.query('INSERT INTO CustomerLogin (`CustomerEmail`, `CustomerPassword`) VALUES (?, ?)', [req.query.Email, req.query.Password], function (err, rows, fields) {
+    if (err) console.log(err);
+    res.json(err);
   });
 });
 
