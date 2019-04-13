@@ -1,3 +1,22 @@
-<p>
-  shop works!
-</p>
+<body>
+  <div class="row">
+    <div class="col-sm-3" *ngFor="let item of items">
+      <mat-card>
+        <mat-card-title>
+          {{item.title}}
+        </mat-card-title>
+        <mat-card-subtitle rtl>{{item.description}}</mat-card-subtitle>
+        <img mat-card-image src={{item.image}}>
+        <mat-card-actions>
+          <button mat-button>
+            <mat-icon>add_shopping_cart</mat-icon>
+            {{item.price}}
+          </button>
+          <!-- <button mat-button> -->
+          <!-- <mat-icon>remove_shopping_cart</mat-icon> -->
+          <!-- </button> -->
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</body>
