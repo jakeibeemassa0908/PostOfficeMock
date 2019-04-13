@@ -5,7 +5,6 @@ export interface Item {
   description: string;
   image: string;
   price: string;
-  quantity: number;
 }
 
 @Component({
