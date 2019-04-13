@@ -30,16 +30,13 @@ body {
     font-size: 14px;
   }
 
-  .name-form  {
-    width: 100%;
-    background: red;
-  }
+
 
   .form button {
     font-family: "Roboto", sans-serif;
     text-transform: uppercase;
     outline: 0;
-    background: #4CAF50;
+    background: rgb(208, 30, 54);
     width: 100%;
     border: 0;
     padding: 15px;
@@ -51,5 +48,5 @@ body {
   }
 
     .form button:hover, .form button:active, .form button:focus {
-      background: #43A047;
+      background: #rgb(208, 30, 54);
     }
