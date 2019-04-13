@@ -1,9 +1,10 @@
 <body>
-  <h1>Let's help you find your package</h1>
-  <div class="alert" [hidden]="hideAlert">
-    <a>The ID you enterd in not valid! You should check in on some of those fields below.</a>
-    <button (click)="closeAlert()">X</button>
+    <div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4 text-danger">Let's track your package </h1>
+    <p class="lead">Need the status of your shipment or a proof of delivery? Enter your tracking number below.</p>
   </div>
+</div>
 
 
   <div class="trackingIDForm">
@@ -33,7 +34,7 @@
   <div class="info-panel">
     <mat-expansion-panel class="one">
       <mat-expansion-panel-header>
-        <mat-panel-title>
+        <mat-panel-title class="text-danger">
           What does my tracking number look like?
         </mat-panel-title>
       </mat-expansion-panel-header>
@@ -45,7 +46,7 @@
     </mat-expansion-panel>
     <mat-expansion-panel class="two">
       <mat-expansion-panel-header>
-        <mat-panel-title>
+        <mat-panel-title class="text-danger">
           Where do I find my tracking number?
         </mat-panel-title>
       </mat-expansion-panel-header>
