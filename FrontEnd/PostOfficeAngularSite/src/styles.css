@@ -1,2 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+<<<<<<< HEAD
 @import "@angular/material/prebuilt-themes/indigo-pink.css";
+||||||| merged common ancestors
+
+
+=======
+@import "~bootstrap/dist/css/bootstrap.css";
+@import "~font-awesome/css/font-awesome.css";
+
+>>>>>>> 1f910bbab959ca28d3a9c3789a0439abfa7387ce

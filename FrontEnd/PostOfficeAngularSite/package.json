@@ -26,15 +26,21 @@
     "bourbon": "^5.1.0",
     "bootstrap": "^4.3.1",
     "core-js": "^2.5.4",
+    "font-awesome": "^4.7.0",
     "hammerjs": "^2.0.8",
     "jwt-decode": "^2.2.0",
     "mysql": "^2.16.0",
+<<<<<<< HEAD
 <<<<<<< HEAD
     "ngx-bootstrap": "^4.0.1",
 ||||||| merged common ancestors
 =======
     "nodemon": "^1.18.11",
 >>>>>>> design changes
+||||||| merged common ancestors
+=======
+    "nodemon": "^1.18.11",
+>>>>>>> 1f910bbab959ca28d3a9c3789a0439abfa7387ce
     "require": "^2.4.20",
     "rxjs": "~6.3.3",
     "rxjs-compat": "^6.4.0",

@@ -5,6 +5,7 @@
   </div>
 
     <div class="form">
+<<<<<<< HEAD
       <form class="register-form" [formGroup]="registerForm" (ngSubmit)="register()">
         <input type="text" formControlName="Fname" placeholder="Fist Name" />
         <input type="text" formControlName="Mint" placeholder="Middle Int" />
@@ -18,6 +19,39 @@
         <input type="text" formControlName="Zip" placeholder="zip" />
         <input type="password" formControlName="Password" placeholder="password" />
         <button type="submit">Register</button>
+||||||| merged common ancestors
+      <form class="register-form">
+        <div class="name-form">
+          <input type="text" placeholder="Fist Name" /> <input type="text" placeholder="Middle Int" /> <input type="text" placeholder="Last Name" />
+        </div>
+        <input type="text" placeholder="Email" />
+        <input type="text" placeholder="Phone Number" />
+        <div class="adress-form">
+          <input type="text" placeholder="House Number" /> <input type="text" placeholder="street Adress" />
+          </div>
+        <div class="city-form">
+          <input type="text" placeholder="city" /> <input type="text" placeholder="state" /> <input type="text" placeholder="zip" />
+        </div>
+          <input type="password" placeholder="password" />
+          <button>login</button>
+          <p class="message">Not registered? <a href="register">Create an account</a></p>
+=======
+      <form class="register-form">
+        <div class="name-form">
+          <input type="text" placeholder="Fist Name" /> <input type="text" placeholder="Middle Int" /> <input type="text" placeholder="Last Name" />
+        </div>
+        <input type="text" placeholder="Email" />
+        <input type="text" placeholder="Phone Number" />
+        <div class="adress-form">
+          <input type="text" placeholder="House Number" /> <input type="text" placeholder="street Adress" />
+          </div>
+        <div class="city-form">
+          <input type="text" placeholder="city" /> <input type="text" placeholder="state" /> <input type="text" placeholder="zip" />
+        </div>
+          <input type="password" placeholder="password" />
+          <button>Register</button>
+          <p class="message">Already have an account? <a href="login">login</a></p>
+>>>>>>> 1f910bbab959ca28d3a9c3789a0439abfa7387ce
       </form>
     </div>
 </body>
